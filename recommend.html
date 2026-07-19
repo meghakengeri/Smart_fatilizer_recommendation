@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">{{ t.page3_title }}</h1>
+
+<div class="result-hero">
+  <span class="icon">{{ crop_icon }}</span>
+  <div>
+    <div class="headline">{{ recommendation }}</div>
+    <div class="subline">{{ crop }} · {{ soil }} {{ t.soil }}</div>
+  </div>
+</div>
+
+<div class="note-box">{{ note }}</div>
+
+<div class="data-grid">
+  <div class="data-cell">
+    <div class="label">{{ t.fert_type }}</div>
+    <div class="value">{{ recommendation }}</div>
+  </div>
+  <div class="data-cell">
+    <div class="label">{{ t.fertility }}</div>
+    <div class="value">{{ fertility }}</div>
+  </div>
+  <div class="data-cell">
+    <div class="label">{{ t.suitable_for }}</div>
+    <div class="value">{{ crop }} / {{ soil }}</div>
+  </div>
+  <div class="data-cell">
+    <div class="label">{{ t.season_lbl }}</div>
+    <div class="value">{{ season }}</div>
+  </div>
+  <div class="data-cell wide">
+    <div class="label">{{ t.npk }}</div>
+    <div class="value">{{ npk }}</div>
+  </div>
+  <div class="data-cell wide">
+    <div class="label">{{ t.brand }}</div>
+    <div class="chip-row">
+      {% for b in brands %}<span class="chip">{{ b }}</span>{% endfor %}
+    </div>
+  </div>
+</div>
+
+<a href="{{ url_for('page4') }}" class="btn btn-primary">{{ t.view_duration }} &#8594;</a>
+{% endblock %}

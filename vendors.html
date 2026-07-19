@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">{{ t.page5_title }}</h1>
+<p class="page-sub">{{ t.page5_sub }} &mdash; {{ area }}</p>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<div id="map"></div>
+
+{% for v in vendors %}
+<div class="vendor-card">
+  <div>
+    <div class="vendor-name">{{ v.name }}</div>
+    <div class="vendor-meta">{{ t.contact }}: {{ v.contact }}</div>
+  </div>
+  <div style="text-align:right;">
+    <div class="vendor-dist">{{ v.distance_km }} {{ t.km }}</div>
+    <a href="https://www.openstreetmap.org/directions?to={{ v.lat }}%2C{{ v.lng }}" target="_blank" style="font-size:0.78rem;color:var(--leaf-dark);">{{ t.navigate }} &#8594;</a>
+  </div>
+</div>
+{% endfor %}
+
+<a href="{{ url_for('restart') }}" class="btn btn-ghost">{{ t.restart }}</a>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([{{ base_lat }}, {{ base_lng }}], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(map);
+
+  L.marker([{{ base_lat }}, {{ base_lng }}])
+    .addTo(map)
+    .bindPopup("{{ area }}")
+    .openPopup();
+
+  const vendors = {{ vendors | tojson }};
+  vendors.forEach(v => {
+    L.marker([v.lat, v.lng]).addTo(map).bindPopup(v.name + " (" + v.distance_km + " km)");
+  });
+</script>
+{% endblock %}

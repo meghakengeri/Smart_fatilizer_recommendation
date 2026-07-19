@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">{{ t.page2_title }}</h1>
+<p class="page-sub">{{ t.page2_sub }}</p>
+
+<div class="confirm-visual">
+  <span class="confirm-icon">{{ crop_icon }}</span>
+  <span class="plus-sign">+</span>
+  <span class="confirm-icon">{{ soil_icon }}</span>
+</div>
+
+<ul class="summary-list">
+  <li><span class="k">{{ t.area }}</span><span class="v">{{ area }}</span></li>
+  <li><span class="k">{{ t.season }}</span><span class="v">{{ season }}</span></li>
+  <li><span class="k">{{ t.crop }}</span><span class="v">{{ crop }}</span></li>
+  <li><span class="k">{{ t.soil }}</span><span class="v">{{ soil }}</span></li>
+</ul>
+
+<div class="btn-row">
+  <a href="{{ url_for('page1') }}" class="btn btn-secondary">{{ t.edit }}</a>
+  <a href="{{ url_for('page3') }}" class="btn btn-primary">{{ t.correct }}</a>
+</div>
+{% endblock %}

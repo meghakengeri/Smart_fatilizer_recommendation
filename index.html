@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">{{ t.page1_title }}</h1>
+<p class="page-sub">{{ t.tagline }}</p>
+
+<label>{{ t.choose_language }}</label>
+<div class="lang-grid">
+  {% for code, name in langs %}
+    <a href="{{ url_for('page1', lang=code) }}" style="text-decoration:none;">
+      <div class="lang-card">
+        <input type="radio" readonly {{ 'checked' if code == cur_lang else '' }} tabindex="-1">
+        <label style="pointer-events:none;">{{ name }}</label>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+<form method="POST" action="{{ url_for('page1') }}">
+  <input type="hidden" name="lang" value="{{ cur_lang }}">
+
+  <label for="area">{{ t.area }}</label>
+  <input type="text" id="area" name="area" placeholder="{{ t.area_ph }}" value="{{ session.get('area','') }}" required>
+
+  <label for="season">{{ t.season }}</label>
+  <select id="season" name="season">
+    {% for s in seasons %}<option value="{{ s }}" {{ 'selected' if s == session.get('season') else '' }}>{{ s }}</option>{% endfor %}
+  </select>
+
+  <label for="crop">{{ t.crop }}</label>
+  <select id="crop" name="crop">
+    {% for c in crops %}<option value="{{ c }}" {{ 'selected' if c == session.get('crop') else '' }}>{{ c }}</option>{% endfor %}
+  </select>
+
+  <label for="soil">{{ t.soil }}</label>
+  <select id="soil" name="soil">
+    {% for s in soils %}<option value="{{ s }}" {{ 'selected' if s == session.get('soil') else '' }}>{{ s }}</option>{% endfor %}
+  </select>
+
+  <button type="submit" class="btn btn-primary">{{ t.next }} &#8594;</button>
+</form>
+{% endblock %}

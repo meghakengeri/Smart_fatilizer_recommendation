@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">{{ t.page4_title }}</h1>
+<p class="page-sub">{{ crop_icon }} {{ crop }} &mdash; {{ t.freq }}: {{ t.freq_val }}</p>
+
+<ul class="timeline">
+  {% for s in stages %}
+  <li>
+    <div class="stage-name">{{ t.stage }} {{ loop.index }}</div>
+    <div class="stage-desc">{{ s }}</div>
+  </li>
+  {% endfor %}
+</ul>
+
+<a href="{{ url_for('page5') }}" class="btn btn-primary">{{ t.find_vendors }} &#8594;</a>
+{% endblock %}
